@@ -3,37 +3,49 @@
 // ===========================
 
 // ---- Configuration ----
-// Edit these to customize the balloons, photos, and captions!
+// Edit these to customize the balloons!
+// For each balloon, you can set:
+//   photo: 'photos/filename.jpg'   → shows an image
+//   video: 'videos/filename.mp4'   → shows a video
+//   caption: 'Your caption text'   → text below the photo/video
+// You can use photo OR video (or both — photo will show as thumbnail, video plays on tap)
+
 const BALLOON_DATA = [
     {
         color: '#f472b6',       // pink
-        caption: '[Caption: Describe memory 1 — replace with a real caption]',
-        photo: null,            // Set to 'photos/photo1.jpg' when ready
+        caption: '[Caption: Describe memory 1]',
+        photo: null,            // e.g. 'photos/photo1.jpg'
+        video: null,            // e.g. 'videos/video1.mp4'
     },
     {
         color: '#a78bfa',       // purple
-        caption: '[Caption: Describe memory 2 — replace with a real caption]',
+        caption: '[Caption: Describe memory 2]',
         photo: null,
+        video: null,
     },
     {
         color: '#f6c445',       // gold
-        caption: '[Caption: Describe memory 3 — replace with a real caption]',
+        caption: '[Caption: Describe memory 3]',
         photo: null,
+        video: null,
     },
     {
         color: '#60a5fa',       // blue
-        caption: '[Caption: Describe memory 4 — replace with a real caption]',
+        caption: '[Caption: Describe memory 4]',
         photo: null,
+        video: null,
     },
     {
         color: '#fb7185',       // coral
-        caption: '[Caption: Describe memory 5 — replace with a real caption]',
+        caption: '[Caption: Describe memory 5]',
         photo: null,
+        video: null,
     },
     {
         color: '#5eead4',       // teal
-        caption: '[Caption: Describe memory 6 — replace with a real caption]',
+        caption: '[Caption: Describe memory 6]',
         photo: null,
+        video: null,
     },
 ];
 
@@ -373,19 +385,27 @@ function showScreen(screenId) {
     }
 }
 
-// ---- Photo Modal ----
+// ---- Photo/Video Modal ----
 function showPhotoModal(data) {
     const modal = document.getElementById('photoModal');
     const photoContainer = document.getElementById('modalPhoto');
     const caption = document.getElementById('modalCaption');
 
-    // Set content
-    if (data.photo) {
+    // Set content — supports photo, video, or placeholder
+    if (data.video) {
+        photoContainer.innerHTML = `
+            <video class="modal-video" src="${data.video}" 
+                   playsinline autoplay controls
+                   poster="${data.photo || ''}">
+                Your browser does not support video.
+            </video>
+        `;
+    } else if (data.photo) {
         photoContainer.innerHTML = `<img src="${data.photo}" alt="${data.caption}">`;
     } else {
         photoContainer.innerHTML = `
             <span class="placeholder-icon">📷</span>
-            <span class="placeholder-text">Photo Placeholder</span>
+            <span class="placeholder-text">Photo / Video Placeholder</span>
         `;
     }
     caption.textContent = data.caption;
@@ -393,7 +413,13 @@ function showPhotoModal(data) {
 }
 
 function closePhotoModal() {
-    document.getElementById('photoModal').classList.remove('active');
+    const modal = document.getElementById('photoModal');
+    // Pause any playing video before closing
+    const video = modal.querySelector('video');
+    if (video) {
+        video.pause();
+    }
+    modal.classList.remove('active');
 }
 
 // ---- Final Screen Transition ----
