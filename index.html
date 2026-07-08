@@ -11,10 +11,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Particle background -->
+    <!-- Background canvases -->
     <canvas id="particleCanvas"></canvas>
-
-    <!-- Confetti canvas (top layer) -->
     <canvas id="confettiCanvas"></canvas>
 
     <!-- ===== SCREEN 1: INTRO ===== -->
@@ -48,9 +46,12 @@
     <!-- ===== SCREEN 2: BALLOON POP ARENA ===== -->
     <section class="screen balloon-screen" id="balloonScreen">
         <div class="balloon-header">
-            <p class="balloon-instruction">🎈 Tap the balloons to reveal memories!</p>
+            <p class="balloon-instruction" id="balloonInstruction">🎈 Pop the balloons to unlock memories!</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
             <div class="pop-counter">
-                <span id="poppedCount">0</span> / <span id="totalCount">0</span> popped
+                <span id="poppedCount">0</span> / <span id="totalCount">0</span> memories unlocked
             </div>
         </div>
         <div class="balloon-arena" id="balloonArena">
@@ -61,16 +62,15 @@
         </button>
     </section>
 
-    <!-- ===== PHOTO REVEAL MODAL ===== -->
+    <!-- ===== MEDIA REVEAL MODAL ===== -->
     <div class="photo-modal" id="photoModal">
         <div class="modal-backdrop" id="modalBackdrop"></div>
         <div class="modal-card">
             <button class="modal-close" id="modalClose">✕</button>
-            <div class="modal-photo" id="modalPhoto">
+            <div class="modal-media" id="modalPhoto">
                 <span class="placeholder-icon">📷</span>
-                <span class="placeholder-text">Photo</span>
             </div>
-            <p class="modal-caption" id="modalCaption">[Caption placeholder]</p>
+            <p class="modal-caption" id="modalCaption"></p>
             <p class="modal-hint">tap anywhere to close</p>
         </div>
     </div>
@@ -81,7 +81,7 @@
             <div class="cake-icon">🎂</div>
             <h2 class="final-title">A Little Note For You</h2>
             <div class="final-letter">
-                <p>[Placeholder: Write your heartfelt birthday message here. 
+                <p>[Placeholder: Write your heartfelt birthday message here.
                 Tell them how special they are, share your favorite memories together,
                 and wish them the very best for the year ahead.]</p>
                 <p>[Placeholder: Add another paragraph with more personal thoughts,
