@@ -29,6 +29,33 @@ const BALLOON_DATA = [
     { color: '#2dd4bf', caption: '[Caption for video 14]', photo: null, video: 'videos/video14.mp4', emoji: '🎬' },
 ];
 
+const CAPTION_POOL = [
+    "My beautiful gurlll",
+    "Happiee birthdayyy",
+    "Meri pilli",
+    "Chal be suar",
+    "Drama queen for life 👑",
+    "Stop being so cute, it's illegal 🙄",
+    "Who allowed you to look this good?",
+    "My constant headache but I love you ❤️",
+    "Aise hi ajeeb rehna hamesha 😂",
+    "Blessed with the best (me, obviously)",
+    "Partner in crime 👯‍♀️",
+    "Meri pyari suarni 🐷",
+    "Cutie pie loading... 99%",
+    "Forever favorite human 🌸",
+    "Tera bday hai to thik hai, varna bhaav nahi milta 😜",
+    "Here is to another year of us being weird together!",
+    "Who is this absolute model?! 😍",
+    "Keep smiling, it suits you! 😊",
+    "Best friend award goes to... definitely not you (jk, love you!)",
+    "Pagli vibe check passed ✅",
+    "Pure chaos in one picture/video 😂",
+    "You make my world a better place 🌎",
+    "A proud member of the Harshi fan club 🌟",
+    "Officially older, but definitely not wiser 🤪"
+];
+
 // Shuffle array so photos and videos are mixed randomly
 function shuffle(arr) {
     const a = [...arr];
@@ -163,6 +190,13 @@ class BalloonManager {
         this.arena = arena;
         this.confetti = confetti;
         this.items = shuffle(BALLOON_DATA);
+        
+        // Randomly assign captions from the shuffled pool to all items
+        const shuffledCaptions = shuffle(CAPTION_POOL);
+        this.items.forEach((item, index) => {
+            item.caption = shuffledCaptions[index % shuffledCaptions.length];
+        });
+
         this.balloonState = []; // physics state for each balloon
         this.popped = 0;
         this.total = this.items.length;
