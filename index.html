@@ -3,196 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Happy Birthday! A special birthday celebration page for a wonderful person.">
+    <meta name="description" content="A special interactive birthday celebration!">
     <title>🎂 Happy Birthday!</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Floating background elements -->
-    <div class="bg-elements" id="bgElements"></div>
+    <!-- Particle background -->
+    <canvas id="particleCanvas"></canvas>
 
-    <!-- Confetti canvas -->
+    <!-- Confetti canvas (top layer) -->
     <canvas id="confettiCanvas"></canvas>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-content">
-            <p class="hero-subtitle animate-fade-up">✨ A Special Day for a Special Person ✨</p>
-            <h1 class="hero-title animate-fade-up delay-1">Happy Birthday</h1>
-            <h2 class="hero-name animate-fade-up delay-2">[Friend's Name]</h2>
-            <p class="hero-date animate-fade-up delay-3">📅 [Date, e.g. July 15, 2026]</p>
-            <a href="#letter" class="cta-btn animate-fade-up delay-4">
-                <span>Read Our Wishes</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-            </a>
-        </div>
-        <div class="scroll-indicator animate-fade-up delay-4">
-            <div class="mouse">
-                <div class="wheel"></div>
+    <!-- ===== SCREEN 1: INTRO ===== -->
+    <section class="screen intro-screen active" id="introScreen">
+        <div class="intro-content">
+            <div class="sparkle-ring">
+                <div class="sparkle-dot" style="--i:0"></div>
+                <div class="sparkle-dot" style="--i:1"></div>
+                <div class="sparkle-dot" style="--i:2"></div>
+                <div class="sparkle-dot" style="--i:3"></div>
+                <div class="sparkle-dot" style="--i:4"></div>
+                <div class="sparkle-dot" style="--i:5"></div>
+                <div class="sparkle-dot" style="--i:6"></div>
+                <div class="sparkle-dot" style="--i:7"></div>
             </div>
-            <p>Scroll Down</p>
-        </div>
-    </section>
-
-    <!-- Birthday Letter Section -->
-    <section class="letter-section" id="letter">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">💌 A Letter For You</span>
-                <h2 class="section-title">Dear [Friend's Name],</h2>
-            </div>
-            <div class="letter-card glass-card">
-                <p class="letter-text">
-                    [Placeholder: Write a heartfelt birthday message here. This could be a personal letter 
-                    expressing your wishes, memories, and hopes for your friend's special day. Make it as 
-                    long or short as you'd like — this is your space to share what's in your heart.]
-                </p>
-                <p class="letter-text">
-                    [Placeholder: You can add another paragraph here with more personal thoughts, 
-                    funny memories, or inside jokes that will make your friend smile.]
-                </p>
-                <div class="letter-signature">
-                    <p>With love,</p>
-                    <p class="signature-name">[Your Name / Group Name]</p>
-                </div>
-            </div>
+            <p class="intro-pretext">✨ Get Ready To Celebrate ✨</p>
+            <h1 class="intro-title">
+                <span class="title-line">Happy</span>
+                <span class="title-line accent">Birthday</span>
+            </h1>
+            <h2 class="intro-name">[Friend's Name]</h2>
+            <p class="intro-date">📅 [Date, e.g. July 15, 2026]</p>
+            <button class="start-btn" id="startBtn">
+                <span class="btn-emoji">🎈</span>
+                <span class="btn-text">Start Celebration</span>
+                <span class="btn-glow"></span>
+            </button>
         </div>
     </section>
 
-    <!-- Photo Memories Section -->
-    <section class="memories-section" id="memories">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">📸 Memories Together</span>
-                <h2 class="section-title">Our Favourite Moments</h2>
-                <p class="section-subtitle">[Placeholder: A short line about the memories you share]</p>
+    <!-- ===== SCREEN 2: BALLOON POP ARENA ===== -->
+    <section class="screen balloon-screen" id="balloonScreen">
+        <div class="balloon-header">
+            <p class="balloon-instruction">🎈 Tap the balloons to reveal memories!</p>
+            <div class="pop-counter">
+                <span id="poppedCount">0</span> / <span id="totalCount">0</span> popped
             </div>
-            <div class="photo-grid">
-                <div class="photo-card glass-card">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-icon">📷</span>
-                        <span class="placeholder-text">Photo 1</span>
-                    </div>
-                    <p class="photo-caption">[Caption: Describe this memory]</p>
+        </div>
+        <div class="balloon-arena" id="balloonArena">
+            <!-- Balloons injected by JS -->
+        </div>
+        <button class="skip-btn" id="skipToEnd" style="display:none;">
+            Continue to wishes →
+        </button>
+    </section>
+
+    <!-- ===== PHOTO REVEAL MODAL ===== -->
+    <div class="photo-modal" id="photoModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-card">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div class="modal-photo" id="modalPhoto">
+                <span class="placeholder-icon">📷</span>
+                <span class="placeholder-text">Photo</span>
+            </div>
+            <p class="modal-caption" id="modalCaption">[Caption placeholder]</p>
+            <p class="modal-hint">tap anywhere to close</p>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 3: FINAL MESSAGE ===== -->
+    <section class="screen final-screen" id="finalScreen">
+        <div class="final-content">
+            <div class="cake-icon">🎂</div>
+            <h2 class="final-title">A Little Note For You</h2>
+            <div class="final-letter">
+                <p>[Placeholder: Write your heartfelt birthday message here. 
+                Tell them how special they are, share your favorite memories together,
+                and wish them the very best for the year ahead.]</p>
+                <p>[Placeholder: Add another paragraph with more personal thoughts,
+                funny memories, or inside jokes.]</p>
+                <div class="letter-sign">
+                    <p>With all our love,</p>
+                    <p class="sign-name">[Your Name / Group Name]</p>
                 </div>
-                <div class="photo-card glass-card">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-icon">📷</span>
-                        <span class="placeholder-text">Photo 2</span>
+            </div>
+
+            <div class="wishes-section">
+                <h3 class="wishes-title">💌 Messages From Your People</h3>
+                <div class="wishes-grid">
+                    <div class="wish-bubble">
+                        <p class="wish-text">"[Placeholder: Birthday wish from Friend 1]"</p>
+                        <p class="wish-from">— [Friend 1]</p>
                     </div>
-                    <p class="photo-caption">[Caption: Describe this memory]</p>
-                </div>
-                <div class="photo-card glass-card">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-icon">📷</span>
-                        <span class="placeholder-text">Photo 3</span>
+                    <div class="wish-bubble">
+                        <p class="wish-text">"[Placeholder: Birthday wish from Friend 2]"</p>
+                        <p class="wish-from">— [Friend 2]</p>
                     </div>
-                    <p class="photo-caption">[Caption: Describe this memory]</p>
-                </div>
-                <div class="photo-card glass-card">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-icon">📷</span>
-                        <span class="placeholder-text">Photo 4</span>
+                    <div class="wish-bubble">
+                        <p class="wish-text">"[Placeholder: Birthday wish from Friend 3]"</p>
+                        <p class="wish-from">— [Friend 3]</p>
                     </div>
-                    <p class="photo-caption">[Caption: Describe this memory]</p>
-                </div>
-                <div class="photo-card glass-card">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-icon">📷</span>
-                        <span class="placeholder-text">Photo 5</span>
+                    <div class="wish-bubble">
+                        <p class="wish-text">"[Placeholder: Birthday wish from Friend 4]"</p>
+                        <p class="wish-from">— [Friend 4]</p>
                     </div>
-                    <p class="photo-caption">[Caption: Describe this memory]</p>
                 </div>
-                <div class="photo-card glass-card">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-icon">📷</span>
-                        <span class="placeholder-text">Photo 6</span>
-                    </div>
-                    <p class="photo-caption">[Caption: Describe this memory]</p>
+            </div>
+
+            <div class="final-footer">
+                <div class="heart-row">
+                    <span>❤️</span><span>🧡</span><span>💛</span><span>💚</span><span>💙</span><span>💜</span>
                 </div>
+                <p class="footer-text">Happy Birthday, [Friend's Name]! 🥳</p>
+                <p class="footer-credit">Made with 💖 by [Your Name]</p>
             </div>
         </div>
     </section>
-
-    <!-- Qualities / Reasons Section -->
-    <section class="qualities-section" id="qualities">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">💖 Why You're Special</span>
-                <h2 class="section-title">Reasons We Love You</h2>
-            </div>
-            <div class="qualities-grid">
-                <div class="quality-card glass-card">
-                    <div class="quality-icon">🌟</div>
-                    <h3>[Quality 1]</h3>
-                    <p>[Placeholder: Describe something amazing about your friend]</p>
-                </div>
-                <div class="quality-card glass-card">
-                    <div class="quality-icon">😂</div>
-                    <h3>[Quality 2]</h3>
-                    <p>[Placeholder: Another reason they're awesome]</p>
-                </div>
-                <div class="quality-card glass-card">
-                    <div class="quality-icon">💪</div>
-                    <h3>[Quality 3]</h3>
-                    <p>[Placeholder: One more thing that makes them special]</p>
-                </div>
-                <div class="quality-card glass-card">
-                    <div class="quality-icon">🎯</div>
-                    <h3>[Quality 4]</h3>
-                    <p>[Placeholder: Something inspiring about them]</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Wishes from Friends Section -->
-    <section class="wishes-section" id="wishes">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">🎉 Birthday Wishes</span>
-                <h2 class="section-title">Messages From Your People</h2>
-            </div>
-            <div class="wishes-carousel">
-                <div class="wish-card glass-card">
-                    <div class="wish-avatar">👤</div>
-                    <p class="wish-text">"[Placeholder: A birthday wish from Friend 1. Make it personal and heartfelt!]"</p>
-                    <p class="wish-author">— [Friend 1 Name]</p>
-                </div>
-                <div class="wish-card glass-card">
-                    <div class="wish-avatar">👤</div>
-                    <p class="wish-text">"[Placeholder: A birthday wish from Friend 2. Could be funny or sweet!]"</p>
-                    <p class="wish-author">— [Friend 2 Name]</p>
-                </div>
-                <div class="wish-card glass-card">
-                    <div class="wish-avatar">👤</div>
-                    <p class="wish-text">"[Placeholder: A birthday wish from Friend 3. Share a favorite memory!]"</p>
-                    <p class="wish-author">— [Friend 3 Name]</p>
-                </div>
-                <div class="wish-card glass-card">
-                    <div class="wish-avatar">👤</div>
-                    <p class="wish-text">"[Placeholder: A birthday wish from Friend 4. Tell them how much they mean to you!]"</p>
-                    <p class="wish-author">— [Friend 4 Name]</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer" id="footer">
-        <div class="container">
-            <div class="cake-emoji">🎂</div>
-            <h2 class="footer-title">Happy Birthday, [Friend's Name]! 🥳</h2>
-            <p class="footer-subtitle">[Placeholder: A final closing wish or inside joke]</p>
-            <div class="footer-hearts">
-                <span>❤️</span><span>🧡</span><span>💛</span><span>💚</span><span>💙</span><span>💜</span>
-            </div>
-            <p class="footer-credits">Made with 💖 by [Your Name / Group Name]</p>
-        </div>
-    </footer>
 
     <script src="script.js"></script>
 </body>
