@@ -19,18 +19,12 @@ const BALLOON_DATA = [
     { color: '#fbbf24', caption: '[Caption for photo 8]', photo: 'photos/photo8.jpeg', video: null, emoji: '📸' },
     { color: '#f0abfc', caption: '[Caption for photo 9]', photo: 'photos/photo9.jpeg', video: null, emoji: '📸' },
     // --- Videos ---
-    { color: '#f472b6', caption: '[Caption for video 1]',  photo: null, video: 'videos/video1.mp4',  emoji: '🎬' },
-    { color: '#a78bfa', caption: '[Caption for video 2]',  photo: null, video: 'videos/video2.mp4',  emoji: '🎬' },
     { color: '#f6c445', caption: '[Caption for video 3]',  photo: null, video: 'videos/video3.mp4',  emoji: '🎬' },
     { color: '#60a5fa', caption: '[Caption for video 4]',  photo: null, video: 'videos/video4.mp4',  emoji: '🎬' },
-    { color: '#fb7185', caption: '[Caption for video 5]',  photo: null, video: 'videos/video5.mp4',  emoji: '🎬' },
-    { color: '#5eead4', caption: '[Caption for video 6]',  photo: null, video: 'videos/video6.mp4',  emoji: '🎬' },
-    { color: '#c084fc', caption: '[Caption for video 7]',  photo: null, video: 'videos/video7.mp4',  emoji: '🎬' },
-    { color: '#fbbf24', caption: '[Caption for video 8]',  photo: null, video: 'videos/video8.mp4',  emoji: '🎬' },
-    { color: '#f0abfc', caption: '[Caption for video 9]',  photo: null, video: 'videos/video9.mp4',  emoji: '🎬' },
-    { color: '#34d399', caption: '[Caption for video 10]', photo: null, video: 'videos/video10.mp4', emoji: '🎬' },
+    { color: '#5eead4', caption: '[Caption for video 6]',  photo: null, video: 'videos/video7.mp4',  emoji: '🎬' }, // note: video7.mp4 is mapped here
+    { color: '#c084fc', caption: '[Caption for video 7]',  photo: null, video: 'videos/video8.mp4',  emoji: '🎬' }, // note: video8.mp4 is mapped here
+    { color: '#fbbf24', caption: '[Caption for video 8]',  photo: null, video: 'videos/video9.mp4',  emoji: '🎬' }, // note: video9.mp4 is mapped here
     { color: '#fb923c', caption: '[Caption for video 11]', photo: null, video: 'videos/video11.mp4', emoji: '🎬' },
-    { color: '#818cf8', caption: '[Caption for video 12]', photo: null, video: 'videos/video12.mp4', emoji: '🎬' },
     { color: '#e879f9', caption: '[Caption for video 13]', photo: null, video: 'videos/video13.mp4', emoji: '🎬' },
     { color: '#2dd4bf', caption: '[Caption for video 14]', photo: null, video: 'videos/video14.mp4', emoji: '🎬' },
 ];
